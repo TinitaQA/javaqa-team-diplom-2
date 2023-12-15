@@ -210,6 +210,12 @@ public class SavingAccountTest {
             new SavingAccount(10_000, 1_000, 13_000, 0);
         });
     }
+    @Test
+    public void minBalanceCanNotBeMoreThanMaxBalance() { // баг8 минимальный баланс не может быть больше максимального и исключение вида IllegalArgumentException не выкидывается
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            new SavingAccount(10_000, 1_000, 13_000, 0);
+        });
+    }
 
     @Test
     public void shouldCalculatePercentWhenBalancePositive() {
@@ -240,7 +246,7 @@ public class SavingAccountTest {
     }
 
     @Test
-    public void shouldCalculateIntegerPercent() { // баг8 не отбрасывается дробная часть
+    public void shouldCalculateIntegerPercent() { // баг9 не отбрасывается дробная часть
         SavingAccount account = new SavingAccount(
                 110,
                 500,
