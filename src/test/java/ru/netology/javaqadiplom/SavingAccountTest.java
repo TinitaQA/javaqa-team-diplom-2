@@ -191,6 +191,7 @@ public class SavingAccountTest {
             new SavingAccount(13_000, -13_000, 26_000, 13);
         });
     }
+
     @Test
     public void maxBalanceCanNotBeNegative() {  // баг6 при отрицательном максимальном балансе не выкидывается исключение вида IllegalArgumentException
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
@@ -204,16 +205,11 @@ public class SavingAccountTest {
             new SavingAccount(10_000, 1_000, 13_000, -13);
         });
     }
+
     @Test
-    public void rateCanBeZero() { // баг7 ставка может быть равна нулю, а исключение вида IllegalArgumentException не выкидывается
+    public void minBalanceCanNotBeMoreThanMaxBalance() { // баг7 минимальный баланс не может быть больше максимального и исключение вида IllegalArgumentException не выкидывается
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            new SavingAccount(10_000, 1_000, 13_000, 0);
-        });
-    }
-    @Test
-    public void minBalanceCanNotBeMoreThanMaxBalance() { // баг8 минимальный баланс не может быть больше максимального и исключение вида IllegalArgumentException не выкидывается
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            new SavingAccount(10_000, 1_000, 13_000, 0);
+            new SavingAccount(10_000, 13_000, 11_000, 0);
         });
     }
 
@@ -246,7 +242,7 @@ public class SavingAccountTest {
     }
 
     @Test
-    public void shouldCalculateIntegerPercent() { // баг9 не отбрасывается дробная часть
+    public void shouldCalculateIntegerPercent() { // баг8 не отбрасывается дробная часть
         SavingAccount account = new SavingAccount(
                 110,
                 500,
