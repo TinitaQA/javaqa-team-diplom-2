@@ -17,11 +17,25 @@ public class CreditAccount extends Account {
      * @param rate - неотрицательное число, ставка кредитования для расчёта долга за отрицательный баланс
      */
     public CreditAccount(int initialBalance, int creditLimit, int rate) {
-        if (rate <= 0) {
+        if (rate < 0) {
             throw new IllegalArgumentException(
                     "Накопительная ставка не может быть отрицательной, а у вас: " + rate
             );
+
         }
+        if (initialBalance < 0) {
+            throw new IllegalArgumentException(
+                    "Начальный баланс не может быть отрицательный, а у вас: " + initialBalance
+            );
+
+        }
+        if (creditLimit < 0) {
+            throw new IllegalArgumentException(
+                    "Кредитный лимит не может быть отрицательный, а у вас: " + creditLimit
+            );
+
+        }
+
         this.balance = initialBalance;
         this.creditLimit = creditLimit;
         this.rate = rate;
@@ -41,14 +55,15 @@ public class CreditAccount extends Account {
         if (amount <= 0) {
             return false;
         }
-        balance = balance - amount;
-        if (balance > -creditLimit) {
-            balance = -amount;
+        if (balance + creditLimit >= amount) {
+            balance = balance - amount;
             return true;
         } else {
             return false;
         }
     }
+
+
 
     /**
      * Операция пополнения карты на указанную сумму.
@@ -66,7 +81,7 @@ public class CreditAccount extends Account {
         if (amount <= 0) {
             return false;
         }
-        balance = amount;
+        balance = balance + amount;
         return true;
     }
 
@@ -78,9 +93,12 @@ public class CreditAccount extends Account {
      * Пример 2: если на счёте 200 рублей, то при любой ставке ответ должен быть 0.
      * @return
      */
+
     @Override
-    public int yearChange() {
-        return balance / 100 * rate;
+    public  int yearChange() {
+        if (balance < 0) return balance * rate / 100;
+        else return 0;
+
     }
 
     public int getCreditLimit() {
