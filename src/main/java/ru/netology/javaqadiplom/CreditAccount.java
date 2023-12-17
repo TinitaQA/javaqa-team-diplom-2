@@ -91,9 +91,12 @@ public class CreditAccount extends Account {
      * Пример 2: если на счёте 200 рублей, то при любой ставке ответ должен быть 0.
      * @return
      */
+
     @Override
-    public int yearChange() {
-        return balance / 100 * rate;
+    public  int yearChange() {
+        if (balance < 0) return balance * rate / 100;
+        else return 0;
+
     }
 
     public int getCreditLimit() {
