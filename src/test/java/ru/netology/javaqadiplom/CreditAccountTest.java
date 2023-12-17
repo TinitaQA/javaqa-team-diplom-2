@@ -7,7 +7,7 @@ public class CreditAccountTest {
 
 
     @Test
-    public void rateEqualsZero(){ // баг0 ноль это не отрицательное число
+    public void rateEqualsZero(){ // fixбаг0 ноль это не отрицательное число
         CreditAccount account = new CreditAccount(
                 1_000,
                 5_000,
@@ -17,14 +17,14 @@ public class CreditAccountTest {
         Assertions.assertEquals(0, account.getRate());
     }
     @Test
-    public void initialBalanceNotBeNegative() {  // баг1, начальный баланс счета не м.б. отрицательным
+    public void initialBalanceNotBeNegative() {  // fixбаг1, начальный баланс счета не м.б. отрицательным
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
             new CreditAccount(-1_000, 5_000, 5);
         });
     }
 
     @Test
-    public void creditLimitNotBeNegative() { // баг2, кредитный лимит не м.б. отрицательным
+    public void creditLimitNotBeNegative() { // fixбаг2, кредитный лимит не м.б. отрицательным
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
             new CreditAccount(0, -5_000, 5);
         });
@@ -51,7 +51,7 @@ public class CreditAccountTest {
     }
 
     @Test
-    public void shouldPayWhenBalanceIsPositive() { // баг3, при выставленном начальном балансе рассчет производит как при 0
+    public void shouldPayWhenBalanceIsPositive() { // fixбаг3, при выставленном начальном балансе рассчет производит как при 0
         CreditAccount account = new CreditAccount(
                 4_000,
                 5_000,
@@ -64,7 +64,7 @@ public class CreditAccountTest {
     }
 
     @Test
-    public void shouldPayWhenBalanceIsPositive2() { // баг3, при выставленном начальном балансе рассчет производит как при 0
+    public void shouldPayWhenBalanceIsPositive2() { // fixбаг3, при выставленном начальном балансе рассчет производит как при 0
         CreditAccount account = new CreditAccount(
                 1_000,
                 5_000,
@@ -77,7 +77,7 @@ public class CreditAccountTest {
     }
 
     @Test
-    public void shouldPayWhenBalanceIsPositive3() { // баг3, при выставленном начальном балансе рассчет производит как при 0
+    public void shouldPayWhenBalanceIsPositive3() { // fixбаг3, при выставленном начальном балансе рассчет производит как при 0
         CreditAccount account = new CreditAccount(
                 3_000,
                 5_000,
@@ -116,7 +116,7 @@ public class CreditAccountTest {
     }
 
     @Test
-    public void shouldNotPayUnderLimit() {  // баг4, покупка не м.б. больше лимита
+    public void shouldNotPayUnderLimit() {  // fixбаг4, покупка не м.б. больше лимита
         CreditAccount account = new CreditAccount(
                 0,
                 5_000,
@@ -129,7 +129,7 @@ public class CreditAccountTest {
     }
 
     @Test
-    public void shouldNotPayUnderLimit2() {  // баг4, покупка не м.б. больше лимита
+    public void shouldNotPayUnderLimit2() {  // fixбаг4, покупка не м.б. больше лимита
         CreditAccount account = new CreditAccount(
                 0,
                 0,
@@ -142,7 +142,7 @@ public class CreditAccountTest {
     }
 
     @Test
-    public void shouldNotPayUnderLimit3() {  // баг4, покупка не м.б. больше лимита
+    public void shouldNotPayUnderLimit3() {  // fixбаг4, покупка не м.б. больше лимита
         CreditAccount account = new CreditAccount(
                 1_000,
                 5_000,
@@ -151,11 +151,11 @@ public class CreditAccountTest {
 
         account.pay(10_000);
 
-        Assertions.assertEquals(0, account.getBalance());
+        Assertions.assertEquals(1_000, account.getBalance());
     }
 
     @Test
-    public void shouldPayWhenAmountEqualsCreditLimit() { // баг5, баланс после покупки может быть равен -лимиту
+    public void shouldPayWhenAmountEqualsCreditLimit() { // fixбаг5, баланс после покупки может быть равен -лимиту
         CreditAccount account = new CreditAccount(
                 0,
                 5_000,
@@ -181,7 +181,7 @@ public class CreditAccountTest {
     }
 
     @Test
-    public void shouldAddToPositiveBalance2() {   // баг6 при изначальном балансе при пополнении не выдает результат
+    public void shouldAddToPositiveBalance2() {   // fixбаг6 при изначальном балансе при пополнении не выдает результат
         CreditAccount account = new CreditAccount(
                 1_000,
                 5_000,
@@ -233,7 +233,7 @@ public class CreditAccountTest {
     }
 
     @Test
-    public void shouldCalculatePercentWhenBalanceNegative2() { // баг7, не происходит отбрасывание дробной части
+    public void shouldCalculatePercentWhenBalanceNegative2() { // fixбаг7, не происходит отбрасывание дробной части
         CreditAccount account = new CreditAccount(
                 0,
                 5_000,
@@ -259,7 +259,7 @@ public class CreditAccountTest {
     }
 
     @Test
-    public void shouldNotCalculatePercentWhenBalancePositive() { // баг8, при положительном балансе выводится результат
+    public void shouldNotCalculatePercentWhenBalancePositive() { // fixбаг8, при положительном балансе выводится результат
         CreditAccount account = new CreditAccount(
                 1_000,
                 5_000,
@@ -281,7 +281,7 @@ public class CreditAccountTest {
     }
 
     @Test
-    public void shouldNotCalculateWhenRateZero() { // баг0 ноль это не отрицательное число
+    public void shouldNotCalculateWhenRateZero() { // fixбаг0 ноль это не отрицательное число
         CreditAccount account = new CreditAccount(
                 0,
                 5_000,
