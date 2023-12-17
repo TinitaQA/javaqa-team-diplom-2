@@ -245,30 +245,14 @@ public class SavingAccountTest {
     public void shouldCalculateIntegerPercent() { // баг8 не отбрасывается дробная часть
         SavingAccount account = new SavingAccount(
                 110,
-                500,
+                100,
                 13_000,
                 15
         );
 
         account.add(468);
 
-        Assertions.assertEquals(70, account.yearChange());
+        Assertions.assertEquals(86, account.yearChange());
     }
-
-
-//    @Test
-//    public void shouldNotCalculatePercentWhenBalanceNegative() { // баг9 так как остаток счета не может быть отрицательным как и ставка, то процент не можеть быть отрицательным
-//        SavingAccount account = new SavingAccount(
-//                1_000,
-//                5_000,
-//                15_000,
-//                10
-//
-//        );
-//        account.pay(1200);
-//
-//        Assertions.assertEquals(0, account.yearChange());
-//    }
-
 
 }
